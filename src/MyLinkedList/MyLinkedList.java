@@ -28,22 +28,38 @@ public class MyLinkedList <T>{
         return sizeList;
     }
     public T get (int index){
-        Node <T> temp = firstNode;
-        for (int i = 0; i < index; i++) {
-           temp = temp.getNextNode();
-        }
-        return temp.getValue();
+        if (index>=0 && index<sizeList){
+            Node <T> temp = firstNode;
+            for (int i = 0; i < index; i++) {
+                temp = temp.getNextNode();
+            }
+            return temp.getValue();
+        } else throw new IllegalArgumentException();
+
     }
     public void remove (int index){
-        Node<T> needNode = firstNode;
-        for (int i = 0; i < index; i++) {
-            needNode = needNode.getNextNode();
-        }
-        Node<T> nextNode =  needNode.getNextNode();
-        Node<T> previousNode =  needNode.getPreviousNode();
-        nextNode.setPreviousNode(needNode.getPreviousNode());
-        previousNode.setNextNode(needNode.getNextNode());
-        sizeList--;
+        if (index>=0 && index<sizeList){
+            Node<T> needNode = firstNode;
+            for (int i = 0; i < index; i++) {
+                needNode = needNode.getNextNode();
+            }
+            Node<T> nextNode =  needNode.getNextNode();
+            Node<T> previousNode =  needNode.getPreviousNode();
+            if(previousNode==null){
+                firstNode = firstNode.getNextNode();
+                sizeList--;
+            } else if (nextNode ==null) {
+                lastNode = lastNode.getPreviousNode();
+                sizeList--;
+            }
+            else{
+                nextNode.setPreviousNode(previousNode);
+                previousNode.setNextNode(nextNode);
+                sizeList--;
+            }
+
+        } else throw new IllegalArgumentException();
+
     }
     public void clear(){
         firstNode = null;
@@ -58,7 +74,7 @@ public class MyLinkedList <T>{
         ll.add("sister");
         System.out.println(ll.size());
         System.out.println(ll.get(2));
-        ll.remove(1);
+        ll.remove(2);
         System.out.println(ll.get(0));
         System.out.println(ll.get(1));
         ll.add("brother");

@@ -41,7 +41,9 @@ public class MyArrayList<T> {
 
     }
     public Object get (int index){
-        return basicArray[index];
+        if (index>=0 && index<basicArray.length)  return basicArray[index];
+        else throw new IllegalArgumentException();
+
     }
     public void clear(){
         for (int i =0; i<basicArray.length;i++) {
@@ -51,11 +53,14 @@ public class MyArrayList<T> {
         }
     }
     public void remove(int index){
-        for (int i = index; i < basicArray.length-1; i++) {
-            basicArray[i]=basicArray[i+1];
-
+        if (index>=0 && index<basicArray.length){
+            for (int i = index; i < basicArray.length-1; i++) {
+                basicArray[i]=basicArray[i+1];
+            }
+            sizeArrayList--;
         }
-        sizeArrayList--;
+        else throw new IllegalArgumentException();
+
     }
 
     @Override
